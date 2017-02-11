@@ -13,6 +13,7 @@ function initialize(){
   for(var val in year_dropdndata) {
       $('<option />', {value: val, text: year_dropdndata[val]}).appendTo($years_dropdn);
   }
+  $('#headline_panel_intro').css("display", "none");
   $('#data_section').css("display", "none");
   $(".get_data_button").click(getdata);
   $('#datatype_dropdn').change(function(){
@@ -23,11 +24,13 @@ function initialize(){
 
 function getdata(){
   if(!queries){
+    console.log($('#headline_panel_intro'));
     $('#data_section').css("display", "inline-block");
-    $('#intro').hide();
+    $('#main_area_intro').hide();
     queries = 1;
   }
   $('#heading_section').empty();
+  $('#headline_panel_intro').css("display", "block");
   $('#data').empty();
   var year = $('#years_dropdn').val();
   var month = $('#month_dropdn').val();
@@ -81,9 +84,9 @@ function plotData(){
       param_metric[article_array[i][param]] = 1
     }
   }
-  // $('#data_heading').html("Categories under '" + findheading(param) + "'");
   $('#data').empty();
   $('#heading_section').empty();
+  $('#headline_panel_intro').css("display", "block");
   for(var val in param_metric){
     var $p = $('<p/>');
     $p.html(val + " (" + param_metric[val] + " articles)");
@@ -119,6 +122,7 @@ function findheading(param){
 
 function showHeadings(){
   window.scrollTo(0, 0);
+  $('#headline_panel_intro').hide();
   var param = $('#datatype_dropdn').val();
   $('#heading_section').empty();
   var $h2 = $('<h2 />');
